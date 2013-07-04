@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<div id="content"><script type="text/javascript">
 var different_joins=0;
 var joins_array=new Array();
 var alias_storing_location;
@@ -904,4 +904,4 @@ $("#btn_execute_query").click(function(e){
 
 $("#btn_save_query").click(saveQuery);
 });
-</script>
+</script><div class="clear">&nbsp;</div></div>

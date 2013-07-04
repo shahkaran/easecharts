@@ -1,4 +1,4 @@
-
+<div id="content">
 
 <!-- start content -->
 <div id="content">
@@ -66,3 +66,4 @@
 	<div class="clear">&nbsp;</div>
 
 </div>
+<div class="clear">&nbsp;</div></div>

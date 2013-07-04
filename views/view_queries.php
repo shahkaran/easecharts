@@ -1,4 +1,4 @@
-<!-- start content -->
+<div id="content"><!-- start content -->
 <div id="content">
 
 	<!--  start page-heading -->
@@ -110,4 +110,4 @@
 	<div class="clear">&nbsp;</div>
 
 </div>
-<!--  end content -->
+<!--  end content --><div class="clear">&nbsp;</div></div>

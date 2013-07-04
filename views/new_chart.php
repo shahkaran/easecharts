@@ -1,4 +1,4 @@
-<!-- start content -->
+<div id="content"><!-- start content -->
 <div id="content">
 
 	<!--  start page-heading -->
@@ -222,3 +222,4 @@ main content starts from here
 	<div class="clear">&nbsp;</div>
 
 </div>
+<div class="clear">&nbsp;</div></div>

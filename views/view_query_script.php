@@ -1,4 +1,4 @@
-<script language="javascript" type="text/javascript">
+<div id="content"><script language="javascript" type="text/javascript">
 $(document).ready(function(e) {
 
 $("#chart_dlg table").hide();
@@ -83,3 +83,4 @@ else
 
 });
 </script>
+<div class="clear">&nbsp;</div></div>

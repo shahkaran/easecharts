@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<div id="content"><script type="text/javascript">
 $(document).ready(function(){
 	//hide setting buttons
 	$("#settings").hide();
@@ -474,4 +474,4 @@ $(document).ready(function(){
 	});
 
 });
-</script>
+</script><div class="clear">&nbsp;</div></div>
