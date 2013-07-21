@@ -112,7 +112,8 @@ function saveQuery(e) {
 	}
 	else
 		datatype_for_derived=null;
-		
+	
+	var full_query=$("#query").val();
 	var data_to_send={
 		"name":queryName,		
 		"select_clause":select_array.toString(),
@@ -122,7 +123,8 @@ function saveQuery(e) {
 		"order_clause":sortby_array.toString(),
 		"having_clause":having_array.toString(),
 		"parameterised":(parameterised ? 1 : 0),
-		"datatypes":datatype_for_derived
+		"datatypes":datatype_for_derived,
+		"original":full_query
 	}
 	if (is_copy_paste)
 		var data_to_send={
@@ -134,7 +136,8 @@ function saveQuery(e) {
 			"order_clause":orderby_str,
 			"having_clause":having_str,
 			"parameterised":(parameterised ? 1 : 0),
-			"datatypes":datatype_for_derived
+			"datatypes":datatype_for_derived,
+			"original":full_query
 		}
 
     

@@ -6,6 +6,7 @@ class ChartMaster extends CI_Controller
 	 index function
 	 load chart master view
 	 */
+	public $metatable=array("charts_info","chartdata_info","queries","query_metadata","chart_types");
 	public function index()
 	{
 		$this->load->view("header");
@@ -34,18 +35,10 @@ class ChartMaster extends CI_Controller
 	*/
 	function NewChart()
 	{
-		$this->load->database();
-		$tables=$this->db->list_tables();
-		$tables_array=array();
-		foreach($tables as $table)
-		{
-			$tables_array[$table]=$this->db->field_data($table);
-		}
-		$data=array("tables"=>$tables_array);
 		$this->load->view("header");
 		$this->load->view("js_css_loader");		
 		$this->load->view("new_chart_script");			
-		$this->load->view("new_chart",$data);	
+		$this->load->view("new_chart");	
 		$this->load->view("footer");		
 	}
 
@@ -61,7 +54,8 @@ class ChartMaster extends CI_Controller
 		$tables_array=array();
 		foreach($tables as $table)
 		{
-			$tables_array[$table]=$this->db->field_data($table);
+			if (!in_array($table,$this->metatable))
+				$tables_array[$table]=$this->db->field_data($table);
 		}
 		$data=array("tables"=>$tables_array);
 		$this->load->view("header");

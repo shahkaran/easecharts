@@ -20,11 +20,31 @@
 		*/
 		function SaveQuery()
 		{
-	
-			$this->db_info=$this->load->database("info",true);
-			
+
+			  $mysql_data_type_hash = array(
+			    1=>'tinyint',
+			    2=>'smallint',
+			    3=>'int',
+			    4=>'float',
+			    5=>'double',
+			    7=>'timestamp',
+			    8=>'bigint',
+			    9=>'mediumint',
+			    10=>'date',
+			    11=>'time',
+			    12=>'datetime',
+			    13=>'year',
+			    16=>'bit',
+			    //252 is currently mapped to all text and blob types (MySQL 5.0.51a)
+			    253=>'varchar',
+			    254=>'char',
+			    246=>'decimal'
+			);
+
+
 			$query_info=$_POST;
 			unset($query_info["datatypes"]);
+			unset($query_info["original"]);
 			$this->db->insert("queries",$query_info);
 			
 			$id=$this->db->insert_id();
@@ -32,67 +52,24 @@
 			$alias_datatypes_str=$_POST["datatypes"];		
 			
 			$fields_array=explode(",",$selected_fields);
-			$metadeta_array=array();
-			foreach($fields_array as $table_fields)
-			{
-				$is_aliased=(strpos($table_fields," as "));
-				if ($is_aliased)
-				{
-					$alias=stristr($table_fields,"as ");
-					$alias=substr($alias,3);
-					$alias=trim($alias);
-					$field_info=array();
-					$field_info["id"]=$id;
-					$field_info["field_name"]=trim($alias,"\"");
-					foreach($alias_datatypes_str as $key=>$alias_info)
-					{
-						if ($alias_info["field"]==trim($alias,"\""))
-						{
-								$field_info["field_type"]=$alias_info["datatype"];					
-								break;	
-						}	
-					}
-					array_push($metadeta_array,$field_info);
-				}
-				else
-				{
-					$field=stristr($table_fields,".");
-					$field=substr($field,1);
-					$table=stristr($table_fields,".",true);
-					$field=str_replace(array(".","`"),"",$field);
-					$table=str_replace(array(".","`"),"",$table);
-					
-					if ($field=="*")
-					{
-						$fields = $this->db->field_data($table);
-		 
-						foreach ($fields as $field)
-						{
-						   $field_info=array();
-						   $field_info["id"]=$id;
-						   $field_info["field_name"]=$field->name;
-						   $field_info["field_type"]=$field->type;				   
-						   array_push($metadeta_array,$field_info);  	
-						   
-						}
-						
-						
-					}
-					else
-					{
-						$query=$this->db_info->query("SELECT `COLUMN_TYPE` FROM `COLUMNS` WHERE `TABLE_NAME` like '".trim($table)."' and `COLUMN_NAME` like '".trim($field)."'");;
-						$field_info=array();
-						$finfo=$query->first_row('array');
-						$field_info["id"]=$id;
-						$field_info["field_name"]=$field;
-						$field_info["field_type"]=stristr($finfo['COLUMN_TYPE'],"(",true);
-						
-						array_push($metadeta_array,$field_info);  					
-						
-					}
-				}
+			$mysqli = new mysqli($this->db->hostname,$this->db->username,$this->db->password,$this->db->database);
+			if ($mysqli->connect_errno) {
+			    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 			}
-			$this->db->insert_batch("query_metadata",$metadeta_array);
+			$op=$mysqli->query($_POST["original"]);
+			$fields=$op->fetch_fields();
+			$metadata_array=array();
+			foreach($fields as $fld)
+			{
+				$fld_info=array();
+				$fld_info["id"]=$id;
+				$fld_info["field_name"]=$fld->name;
+				$fld_info["field_type"]=$mysql_data_type_hash[$fld->type];
+				array_push($metadata_array,$fld_info);
+
+			}
+
+			$this->db->insert_batch("query_metadata",$metadata_array);
 			return true;
 	
 		}

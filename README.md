@@ -10,40 +10,48 @@ And also import the tables required
 
 A sql file is also included to help you add the database table 
 
+Version 1.1:
+
+-> No need to have access to "information_schema" database 
+
 ______________________
 
+Version 1.0:
 
-Due to a bug in current version of CodeIgniter the code needs access to information_schema database 
+issues: 
+-> Due to a bug in current version of CodeIgniter the code needs access to information_schema database 
 
-To provide this access you need to add the following line in "application/config/database.php" file : 
+	To provide this access you need to add the following line in "application/config/database.php" file : 
 
 
-$db['info']['hostname'] = [your host name];
+	$db['info']['hostname'] = [your host name];
 
-$db['info']['username'] = [your username];
+	$db['info']['username'] = [your username];
 
-$db['info']['password'] = [your password];
+	$db['info']['password'] = [your password];
 
-$db['info']['database'] = 'information_schema';
+	$db['info']['database'] = 'information_schema';
 
-$db['info']['dbdriver'] = 'mysql';
+	$db['info']['dbdriver'] = 'mysql';
 
-$db['info']['dbprefix'] = '';
+	$db['info']['dbprefix'] = '';
 
-$db['info']['pconnect'] = FALSE;
+	$db['info']['pconnect'] = FALSE;
 
-$db['info']['db_debug'] = TRUE;
+	$db['info']['db_debug'] = TRUE;
 
-$db['info']['cache_on'] = FALSE;
+	$db['info']['cache_on'] = FALSE;
 
-$db['info']['cachedir'] = '';
+	$db['info']['cachedir'] = '';
 
-$db['info']['char_set'] = 'utf8';
+	$db['info']['char_set'] = 'utf8';
 
-$db['info']['dbcollat'] = 'utf8_general_ci';
+	$db['info']['dbcollat'] = 'utf8_general_ci';
 
-$db['info']['swap_pre'] = '';
+	$db['info']['swap_pre'] = '';
 
-$db['info']['autoinit'] = TRUE;
+	$db['info']['autoinit'] = TRUE;
 
-$db['info']['stricton'] = FALSE;
+	$db['info']['stricton'] = FALSE;
+
+-> Query Builder is still in beta stage
